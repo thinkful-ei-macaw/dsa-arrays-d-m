@@ -1,6 +1,6 @@
 // 1. Implement an Array class from scratch.
-const memory = require('./memory');
-
+const Memory = require('./memory');
+const memory = new Memory();
 class Array {
   constructor() {
     this.length = 0;
@@ -8,6 +8,12 @@ class Array {
     this.ptr = memory.allocate(this.length);
   }
 
+  get(index) {
+    if (index < 0 || index >= this.length) {
+      throw new Error('Index error');
+    }
+    return memory.get(this.ptr + index);
+  } 
   push(value) {
     if (this.length >= this._capacity) {
       this._resize((this.length + 1) * Array.SIZE_RATIO);
